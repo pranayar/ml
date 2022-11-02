@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+d=pd.read_csv('tvmarketing.csv')
+d.head()
+d.plot(x='TV',y='Sales',kind='scatter')
+
+x=d['TV']
+y=d['Sales']
+from sklearn.model_selection import train_test_split
+xtrain,xtest,ytrain,ytest=train_test_split(x,y,train_size=0.8,random_state=000)
+def lr(x,y):
+  n=len(x)
+  xm=x.mean()
+  ym=y.mean()
+  b1num=((x-xm)*(y-ym)).sum()
+  b1den=((x-xm)**2).sum()
+  b1=b1num/b1den
+  b0=ym-(b1*xm)
+
+  return (b0,b1)
+
+a,b=lr(x,y)
+print('y = {} + {}x'.format(round(a,3),round(b,3)))
